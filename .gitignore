@@ -1,0 +1,5 @@
+.env/
+z.js
+media/
+static/
+website/db.sqlite*

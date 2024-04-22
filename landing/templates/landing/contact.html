@@ -1,0 +1,50 @@
+{% extends 'landing.html' %}
+{% load heroicons %}
+
+{% block content %}
+  <section class="w-full flex flex-wrap gap-10 px-[15%] pt-28">
+    <div class="basis-60 grow rounded-flex flex-col p-4 bg-gray-200"></div>
+    <div class="basis-80 grow-[3]">
+      <form action="" method="post" class="w-full h-full flex gap-5 flex-col items-center relative rounded p-8 bg-white bg-opacity-90 backdrop-blur">
+        {% csrf_token %}
+        <h2 class="capitalize lg:text-2xl font-bold text-slate-700">send your message</h2>
+
+        <div class="flex flex-wrap gap-4 w-full">
+          <div class="flex flex-col basis-72 grow">
+            <label htmlFor="" class="capitalize font-serif text-gray-500">name</label>
+            <div class="relative items-center w-full flex border p-1 gap-1 pl-2 border-slate-400 rounded">
+              <span class="scale-75 text-gray-600">{% heroicon_outline 'pencil' %}</span>
+              <input required name="name" type="text" class="p-1 px-2 w-full border-none outline-none bg-transparent text-slate-500 resize-none" autoComplete="off" />
+            </div>
+          </div>
+
+          <div class="flex flex-col basis-72 grow">
+            <label htmlFor="" class="capitalize font-serif text-gray-500">email</label>
+            <div class="relative items-center w-full flex border p-1 gap-1 pl-2 border-slate-400 rounded">
+              <span class="scale-75 text-gray-600">{% heroicon_outline 'at-symbol' %}</span>
+              <input required name="email" type="email" class="p-1 px-2 w-full border-none outline-none bg-transparent text-slate-500 resize-none" autoComplete="off" />
+            </div>
+          </div>
+
+          <div class="flex flex-col basis-72 grow">
+            <label htmlFor="" class="capitalize font-serif text-gray-500">phone number</label>
+            <div class="relative items-center w-full flex border p-1 gap-1 pl-2 border-slate-400 rounded">
+              <span class="scale-75 text-gray-600">{% heroicon_outline 'pencil' %}</span>
+              <input required name="phone_number" type="tel" class="p-1 px-2 w-full border-none outline-none bg-transparent text-slate-500 resize-none" autoComplete="off" />
+            </div>
+          </div>
+
+          <div class="flex flex-col basis-72 grow">
+            <label htmlFor="" class="capitalize font-serif text-gray-500">message</label>
+            <div class="relative items-center w-full flex border p-1 gap-1 pl-2 border-slate-400 rounded">
+              <span class="scale-75 text-gray-600 mb-auto">{% heroicon_outline 'chat-bubble-left' %}</span>
+              <textarea required name="message" class="p-1 px-2 w-full border-none outline-none resize-none h-20 bg-transparent text-slate-500 resize-none" autoComplete="off"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <button class="py-2 w-full uppercase mr-auto text-white bg-slate-700 transition-all hover:brightness-110">message us</button>
+      </form>
+    </div>
+  </section>
+{% endblock %}

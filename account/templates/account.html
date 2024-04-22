@@ -1,0 +1,28 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% tailwind_css %}
+    <meta charset="UTF-8" />
+    <title>Authentication</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="w-screen h-screen relative flex items-center justify-center bg-slate-200 overflow-hidden">
+    <div class="absolute rounded-full aspect-1 bottom-14 -right-20 w-full md:w-2/3 bg-white flex items-center justify-center shadow-md">
+      <img src="{% static 'images/train-auth.jpg' %}" alt="" class="w-full h-full object-cover rounded-full brightness-75" />
+    </div>
+    <header class="fixed top-0 left-0 w-screen p-3 px-[5%] flex items-center justify-between z-10">
+      <a href="{% url 'landing:index-view' %}" class="capitalize font-bold text-xl absolute md:relative left-1/2 md:left-auto -translate-x-1/2 md:translate-x-0"><img src="{% static 'logo.jpg' %}" alt="" class="h-7" /></a>
+
+      <nav class="flex grow items-center justify-between md:justify-end gap-4 text-slate-700 md:text-slate-200 drop-shadow-lg text-xs md:text-base" style="font-variant: small-caps;">
+        <a href="{% url 'landing:about-view' %}" class="current transition-all hover:text-slate-800">about us</a>
+        <a href="{% url 'landing:contact-view' %}" class="current transition-all hover:text-slate-800">contact us</a>
+      </nav>
+    </header>
+    <main class="p-2 backdrop-blur-md bg-white bg-opacity-40 rounded-md">
+      {% block content %}
+      {% endblock %}
+    </main>
+    {% include 'components/error.html' %}
+  </body>
+</html>

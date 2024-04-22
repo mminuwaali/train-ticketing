@@ -1,0 +1,25 @@
+{% extends 'landing.html' %}
+
+{% block content %}
+  <section class="w-full bg-slate-900 brightness-75 text-white font-bold flex items-center justify-center aspect-[3.5] min-h-80">
+    <h1 class="capitalize text-3xl md:text-6xl">who we are</h1>
+  </section>
+
+  <section class="w-full flex flex-wrap gap-8 px-[10%]">
+    <div class="h-80 basis-96 grow flex flex-col items-start justify-center gap-4 p-[5%] shadow from-slate-400 to-slate-800 bg-gradient-to-b"></div>
+
+    <div class="h-80 basis-96 grow flex flex-col items-start justify-center gap-4 p-[5%] shadow">
+      <h2 class="capitalize self-center md:self-start text-2xl md:text-4xl">our vision</h2>
+      <p class="font-thin">
+        {% lorem 50 w %}
+      </p>
+    </div>
+
+    <div class="h-80 basis-96 grow flex flex-col items-center justify-center gap-4 p-[5%] shadow">
+      <h2 class="capitalize text-2xl md:text-4xl">our vision</h2>
+      <p class="text-center font-thin">
+        {% lorem 50 w %}
+      </p>
+    </div>
+  </section>
+{% endblock %}

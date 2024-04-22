@@ -1,0 +1,97 @@
+{% extends 'landing.html' %}
+
+{% block content %}
+  <section class="w-5/6 mt-20 mx-auto p-2 px-6 flex rounded-md bg-slate-500 text-white">
+    <span style="font-variant: small-caps;">booking from {{ schedule.from_state.name }} to {{ schedule.to_state.name }} on {{ schedule.scheduled_date }}</span>
+  </section>
+
+  <section class="w-full gap-10 flex px-[8%] flex-wrap justify-end items-start">
+    <div class="grow p-4 flex flex-col items-center bg-white shadow-md gap-4">
+      <h2 class="text-center capitalize font-semibold text-slate-600">booking train ticketing</h2>
+      <form method="post" action="{% url 'landing:confirm-booking-view' schedule.id %}" class="w-full grid gap-4 grid-cols-[repeat(auto-fill,minmax(15rem,1fr))]" id="classes">
+        {% csrf_token %}
+        {% for class in classes %}
+          <div class="flex flex-col items-start">
+            <div class="w-full flex items-center justify-between text-sm">
+              <span class="" style="font-variant: small-caps;">{{ class.name }}</span>
+              <b id="sub-total-{{ class.name }}" data-total="0" class="font-thin" style="font-variant: small-caps;">NGN 0.00</b>
+            </div>
+            <input required type="number" name="{{ class.id }}" min="0" max="{{ class.seats.count }}" value="0" oninput="handlePriceChange(event, '#sub-total-{{ class.name }}', {{ schedule.distance }} * {{ class.price }})" onchange="handlePriceChange(event, '#sub-total-{{ class.name }}', {{ schedule.distance }} * {{ class.price }})" class="w-full rounded-md text-xs" />
+          </div>
+        {% endfor %}
+      </form>
+
+      <div class="w-full flex items-center justify-end gap-4">
+        <span id="total-price">NGN 0</span>
+        {% if user.is_authenticated %}
+          <button disabled id="submit" onclick="handlePurchase()" class="px-10 py-0.5 rounded-md text-white text-sm bg-blue-600 font-semibold disabled:bg-slate-400" style="font-variant: small-caps;">book</button>
+        {% else %}
+          <a href="{% url 'account:signin-view' %}?next={{ request.path }}" disabled id="submit" class="px-10 py-0.5 rounded-md text-white text-sm bg-blue-600 font-semibold disabled:bg-slate-400" style="font-variant: small-caps;">book</a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="basis-80 rounded-md overflow-hidden flex flex-col shadow-md">
+      <img src="{{ schedule.train.image }}" alt="" class="w-full object-contain" />
+      <div class="w-full flex flex-col items-start gap-1 bg-white p-4">
+        <h2 class="text-lg capitalize font-semibold text-slate-600">{{ schedule.train.name }}</h2>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block script %}
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script>
+    let form = document.querySelector('#classes')
+    let total = document.querySelector('#total-price')
+    
+    function handlePriceChange(event, name, subTotalPrice) {
+      if (event.target.value >= event.target.max) return (event.target.value = event.target.max)
+    
+      let priceShower = document.querySelector(name)
+      let totalPrice = event.target.value * subTotalPrice
+    
+      priceShower.setAttribute('data-total', totalPrice)
+      priceShower.textContent = Number(totalPrice).toLocaleString('en-US', { style: 'currency', currency: 'NGN' })
+    
+      calculateTotal()
+    }
+    
+    function calculateTotal() {
+      let amount = []
+      let submitButton = document.querySelector('#submit')
+      let totalTag = document.querySelector('#total-price')
+      let totalTags = document.querySelectorAll('#classes b')
+    
+      for (let i of totalTags) amount.push(i.getAttribute('data-total'))
+      amount = amount.reduce((acc, curr) => acc + +curr, 0)
+    
+      totalTag.setAttribute('data-total', amount)
+      totalTag.textContent = amount ? Number(amount).toLocaleString('en-US', { style: 'currency', currency: 'NGN' }) : 'NGN 0.00'
+    
+      if (amount) submitButton.removeAttribute('disabled')
+      else submitButton.setAttribute('disabled', true)
+    }
+    
+    function handlePurchase() {
+      let totalTag = document.querySelector('#total-price')
+    
+      let handler = PaystackPop.setup({
+        currency: 'NGN',
+        email: "{{ user.email }}",
+        ref: '' + Math.floor(Math.random() * 1000000000 + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+        key: 'pk_test_3288357263a2a6e7b787f4fa87e4642e31819a1b', // Replace with your public key
+        amount: Number(totalTag.getAttribute('data-total')).toFixed(2) * 100,
+        onClose: function () {
+          alert('You have canceled the transaction')
+        },
+        callback: function () {
+          form.submit()
+        }
+      })
+    
+      handler.openIframe()
+    }
+  </script>
+{% endblock %}

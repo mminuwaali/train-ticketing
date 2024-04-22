@@ -1,0 +1,134 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+  <section class="w-full h-full flex p-6">
+    <div class="basis-40 h-full p-4 grow flex flex-col gap-4 items-start overflow-auto">
+      <h2 class="text-2xl capitalize font-bold">hello<span class="font-thin">, {{ user.first_name }}</span></h2>
+      <p class="text-xs font-thin w-5/6">Nice to have you back, what an exciting day, where do you want to travel</p>
+      <div class="w-full flex flex-col items-start gap-4">
+        <span class="font-bold text-lg capitalize">pending tickets</span>
+        <div class="w-full flex flex-col gap-2">
+          {% for ticket in pending_tickets %}
+            <div class="w-full p-2 rounded-md bg-white shadow flex flex-col gap-4">
+              <div class="w-full flex items-center justify-between">
+                <span class="text-xs text-slate-700"><b style="font-variant: small-caps;">from: </b>{{ ticket.booking.schedule.from_state.name }}</span>
+                <span class="text-xs text-slate-700"><b style="font-variant: small-caps;">to: </b>{{ ticket.booking.schedule.to_state.name }}</span>
+              </div>
+
+              <div class="w-full flex items-center justify-between">
+                <div class="flex text-xs leading-3 flex-col items-start">
+                  <b style="font-variant: small-caps;">departure time: </b>
+                  <span class="text-slate-700">{{ ticket.booking.schedule.departure_time }}</span>
+                </div>
+
+                <span class="text-xs text-slate-300">{{ ticket.booking.schedule.time_difference }}</span>
+                
+                <div class="flex text-xs leading-3 flex-col items-start">
+                  <b style="font-variant: small-caps;">arrival time: </b>
+                  <span class="text-slate-700">{{ ticket.booking.schedule.arrival_time }}</span>
+                </div>
+              </div>
+
+              <div class="w-full mt-4 flex items-center justify-between">
+                <b></b>
+                <span class="text-xs text-slate-700"><b class="text-base" style="font-variant: small-caps;">{{ ticket.get_price }} </b>ticket price</span>
+              </div>
+            </div>
+            {% empty %}
+            <p class="text-center w-full text-slate-300 mt-4">There's no pending tickets</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="basis-80 grow-[3] p-6 rounded-xl bg-slate-200 h-full gap-4 flex flex-wrap">
+      <div class="basis-80 min-h-44 p-4 rounded bg-white grow overflow-auto flex flex-col gap-1">
+        <span class="capitalize text-slate-500 font-semibold">attendance invitations</span>
+        <div class="w-full grow overflow-hidden flex flex-col gap-1">
+          {% for invite in invites %}
+            <div class="w-full rounded-md p-2 px-4 bg-slate-200 flex items-center justify-between">
+              <span class="text-xs capitalize">{{ invite.attendance.timetable.course.name }} - {{ invite.attendance.timetable.course.lecturer }}</span>
+              <div class="flex items-center justify-center text-white gap-1 font-semibold">
+                <form action="{% url 'attendance:invite-view' invite.id %}" method="post" class="flex items-center justify-center">
+                  {% csrf_token %}
+                  <button class="px-3 rounded bg-red-600 text-xs" style="font-variant: small-caps;">reject</button>
+                </form>
+                <form action="{% url 'attendance:invite-view' invite.id %}" method="post" class="flex items-center justify-center">
+                  {% csrf_token %}
+                  <input type="hidden" name="status" value="true" />
+                  <button class="px-3 rounded bg-blue-600 text-xs" style="font-variant: small-caps;">accept</button>
+                </form>
+              </div>
+            </div>
+            {% empty %}
+            <p class="text-center w-full text-slate-300 mt-4">You don't have any invites</p>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="basis-80 min-h-44 p-4 rounded bg-white grow overflow-auto flex flex-col gap-1">
+        <span class="capitalize text-slate-500 font-semibold">today's pending attendance</span>
+        <div class="w-full grow overflow-hidden flex flex-col gap-1">
+          {% for attendance in pendings %}
+            <div class="w-full flex flex-col p-2 bg-slate-200 rounded">
+              <div class="grow flex flex-col">
+                <div class="w-full flex items-center justify-start text-xs gap-2">
+                  <label style="font-variant: small-caps;" class="text-blue-400">course:</label>
+                  <output class="capitalize">{{ attendance.attendance.timetable.course.name }}</output>
+                </div>
+                <div class="w-full flex items-center justify-start text-xs gap-2">
+                  <label style="font-variant: small-caps;" class="text-blue-400">lecturer:</label>
+                  <output class="capitalize">{{ attendance.attendance.timetable.course.lecturer }}</output>
+                </div>
+
+                <div class="w-full flex items-center justify-between text-xs gap-4">
+                  <label style="font-variant: small-caps;" class="mr-auto text-blue-400">time</label>
+                  <output class="uppercase">From: {{ attendance.attendance.timetable.start_time|date:'h:i A' }}</output>
+                  <output class="uppercase">To: {{ attendance.attendance.timetable.end_time|date:'h:i A' }}</output>
+                </div>
+              </div>
+              <div class="flex w-full items-center justify-end mt-4 text-white gap-1 text-xs">
+                <form action="{% url 'attendance:attendance-view' attendance.id %}" method="post" class="flex items-center justify-center">
+                  {% csrf_token %}
+                  <button class="px-3 rounded bg-red-300" style="font-variant: small-caps;">absent</button>
+                </form>
+                <form action="{% url 'attendance:attendance-view' attendance.id %}" method="post" class="flex items-center justify-center">
+                  {% csrf_token %}
+                  <input type="hidden" name="status" value="true" />
+                  <button class="px-3 rounded bg-blue-300" style="font-variant: small-caps;">present</button>
+                </form>
+              </div>
+            </div>
+            {% empty %}
+            <p class="text-center w-full text-slate-300 mt-4">No attendance for today</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="basis-80 max-h-64 p-4 rounded bg-white grow overflow-auto flex flex-col gap-1">
+        <table class="w-full">
+          <caption class="capitalize text-slate-500 font-semibold mb-4 text-left">bookings</caption>
+          <thead class="">
+            <tr class="capitalize text-xs text-left text-slate-500">
+              <th class="border p-2 px-4 uppercase">id</th>
+              <th class="border p-2 px-4">schedule</th>
+              <th class="border p-2 px-4">number of ticket</th>
+              <th class="border p-2 px-4">date created</th>
+              <th class="border p-2 px-4">total</th>
+            </tr>
+          </thead>
+          <tbody class="text-xs">
+            {% for booking in bookings %}
+              <tr class="">
+                <td class="border p-3">{{ forloop.counter }}</td>
+                <td class="border p-3">{{ booking.schedule }}</td>
+                <td class="border p-3 uppercase">{{ booking.tickets.count }}</td>
+                <td class="border p-3 uppercase">{{ booking.created_at }}</td>
+                <td class="border p-3 uppercase">N{{ booking.total_price }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+{% endblock %}

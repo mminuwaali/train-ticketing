@@ -1,0 +1,25 @@
+{% load static heroicons tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% tailwind_css %}
+    <meta charset="UTF-8" />
+    <title>Attendance Management System | Student</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="w-screen h-screen flex overflow-hidden p-8 from-slate-600 to-gray-700 bg-gradient-to-br">
+    <aside class="w-20 h-full flex flex-col items-center gap-4">
+      <nav class="grow w-full flex flex-col items-center justify-start gap-4 pt-4">
+        <a href="{% url 'landing:index-view' %}" class="flex items-center justify-center text-white scale-75">{% heroicon_outline 'home' %}</a>
+      </nav>
+      <a href="{% url 'account:signout-view' %}" class="mt-auto flex items-center justify-center text-rose-700">{% heroicon_outline 'arrow-left-start-on-rectangle' %}</a>
+    </aside>
+    <main class="grow overflow-auto overflow-x-hidden rounded-xl bg-white">
+      {% block content %}
+
+      {% endblock %}
+    </main>
+    {% include 'components/error.html' %}
+  </body>
+</html>

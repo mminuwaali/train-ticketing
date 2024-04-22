@@ -1,0 +1,65 @@
+{% extends 'account.html' %}
+{% load static heroicons %}
+
+{% block content %}
+  <form method="post" class="w-[40rem] max-w-[90vw] flex flex-col gap-6 px-4">
+    {% csrf_token %}
+    <div class="w-full flex flex-col items-center">
+      <h2 class="text-2xl font-bold lowercase" style="font-variant: small-caps;">Sign up</h2>
+      <span class="font-thin text-xs text-slate-600">Excited to be part of us</span>
+    </div>
+
+    <div class="flex gap-x-4 gap-1 flex-wrap w-full">
+      <div class="flex flex-col basis-52 grow">
+        <label htmlFor="first_name" class="capitalize font-serif text-slate-500">first name</label>
+        <div class="relative items-center w-full flex border p-1 gap-1 pl-2 border-slate-400 rounded">
+          <span class="scale-75 text-slate-600">{% heroicon_outline 'hashtag' %}</span>
+          <input required name="first_name" type="text" class="p-1 px-2 w-full border-none outline-none bg-transparent text-slate-500 resize-none" autoComplete="off" />
+        </div>
+      </div>
+
+      <div class="flex flex-col basis-52 grow">
+        <label htmlFor="last_name" class="capitalize font-serif text-slate-500">last name</label>
+        <div class="relative items-center w-full flex border p-1 gap-1 pl-2 border-slate-400 rounded">
+          <span class="scale-75 text-slate-600">{% heroicon_outline 'hashtag' %}</span>
+          <input required name="last_name" type="text" class="p-1 px-2 w-full border-none outline-none bg-transparent text-slate-500 resize-none" autoComplete="off" />
+        </div>
+      </div>
+
+      <div class="flex flex-col basis-52 grow">
+        <label htmlFor="username" class="capitalize font-serif text-slate-500">username</label>
+        <div class="relative items-center w-full flex border p-1 gap-1 pl-2 border-slate-400 rounded">
+          <span class="scale-75 text-slate-600">{% heroicon_outline 'pencil' %}</span>
+          <input required name="username" type="text" class="p-1 px-2 w-full border-none outline-none bg-transparent text-slate-500 resize-none" autoComplete="off" />
+        </div>
+      </div>
+
+      <div class="flex flex-col basis-52 grow">
+        <label htmlFor="" class="capitalize font-serif text-slate-500">email</label>
+        <div class="relative items-center w-full flex border p-1 gap-1 pl-2 border-slate-400 rounded">
+          <span class="scale-75 text-slate-600">{% heroicon_outline 'at-symbol' %}</span>
+          <input required name="email" type="email" class="p-1 px-2 w-full border-none outline-none bg-transparent text-slate-500 resize-none" autoComplete="off" />
+        </div>
+      </div>
+
+      <div class="flex flex-col basis-52 grow">
+        <label htmlFor="password1" class="capitalize font-serif text-slate-500">password</label>
+        <div class="relative items-center w-full flex border p-1 gap-1 pl-2 border-slate-400 rounded">
+          <span class="scale-75 text-slate-600">{% heroicon_outline 'eye-slash' %}</span>
+          <input required name="password1" type="password" class="p-1 px-2 w-full border-none outline-none bg-transparent text-slate-500 resize-none" autoComplete="off" />
+        </div>
+      </div>
+
+      <div class="flex flex-col basis-52 grow">
+        <label htmlFor="password2" class="capitalize font-serif text-slate-500">repeat password</label>
+        <div class="relative items-center w-full flex border p-1 gap-1 pl-2 border-slate-400 rounded">
+          <span class="scale-75 text-slate-600">{% heroicon_outline 'eye-slash' %}</span>
+          <input required name="password2" type="password" class="p-1 px-2 w-full border-none outline-none bg-transparent text-slate-500 resize-none" autoComplete="off" />
+        </div>
+      </div>
+    </div>
+
+    <button class="self-center py-2 px-28 text-center font-bold bg-slate-700 text-white rounded">Submit</button>
+    <span class="font-semibold text-xs text-center text-slate-400">Got an account? <a href="{% url 'account:signin-view' %}" class="underline">Sign in here</a></span>
+  </form>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'landing.html' %}
+{% load static %}
+
+{% block content %}
+  <section class="w-full md:w-11/12 relative rounded-md mx-auto mt-10 aspect-3 min-h-96 from-slate-400 to-slate-800 bg-gradient-to-b">
+    <img src="{% static 'images/train-banner.jpg' %}" alt="" class="w-full h-full absolute brightness-75 object-cover rounded-md" />
+
+    <div class="w-full h-full font-bold relative flex flex-col items-center md:items-start justify-center gap-2 z-10 p-[10%] text-white">
+      <h3 class="text-xl md:text-3xl capitalize">online ticketing</h3>
+      <h2 class="text-2xl md:text-5xl uppercase">nigerian railways</h2>
+      <span class="uppercase md:capitalize text-xs md:text-base font-semibold">safety | reliable | automated</span>
+    </div>
+  </section>
+
+  <section class="w-full flex justify-center">
+    <form action="" method="post" class="md:w-5/6 px-4 w-full flex gap-2 flex-wrap p-2 rounded-md shadow-md">
+      {% csrf_token %}
+      <div class="grow basis-40 flex flex-col items-start gap-1">
+        <label for="" class="capitalize font-semibold text-sm">from</label>
+        <select required name="from" id="from" type="text" class="w-full rounded-sm px-4 py-1" style="font-variant: small-caps;">
+          <option hidden>select town</option>
+          {% for state in states %}
+            <option value="{{ state.name }}">{{ state.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="grow basis-40 flex flex-col items-start gap-1">
+        <label for="" class="capitalize font-semibold text-sm">to</label>
+        <select required name="to" id="to" type="text" class="w-full rounded-sm px-4 py-1" style="font-variant: small-caps;">
+          <option hidden>select town</option>
+          {% for state in states %}
+            <option value="{{ state.name }}">{{ state.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="grow basis-40 flex flex-col items-start gap-1">
+        <label for="" class="capitalize font-semibold text-sm">class</label>
+        <select required name="class" type="text" class="w-full rounded-sm px-4 py-1" style="font-variant: small-caps;">
+          <option hidden>select seat class</option>
+          {% for cls in classes %}
+            <option value="{{ cls.name }}">{{ cls.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="grow basis-40 flex flex-col items-start gap-1">
+        <label for="" class="capitalize font-semibold text-sm">date</label>
+        <input required name="date" type="date" class="w-full rounded-sm px-4 py-1" />
+      </div>
+
+      <div class="w-full flex-none flex items-center justify-end mt-4">
+        <button type="submit" style="font-variant: small-caps;" class="px-8 py-1 text-sm rounded-sm bg-slate-600 text-white font-semibold">search</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="w-full flex flex-col">
+    <div class="w-full px-[10%] grid gap-4 grid-cols-[repeat(auto-fill,minmax(16rem,1fr))]">
+      {% for schedule in schedules %}
+        <div class="aspect-[1.2] rounded-md shadow-md group relative overflow-hidden">
+          <img src="{{ schedule.train.image }}" alt="" class="absolute w-full h-full object-cover bg-slate-600" />
+
+          <div class="z-10 w-full h-full rounded-md flex flex-col items-center justify-end gap-1 text-white p-6 bg-black bg-opacity-70 text-center opacity-0 relative group-hover:opacity-100 transition-all">
+            <span class="text-lg text-center font-semibold">{{ schedule.train.name }}</span>
+            <p class="text-xs leading-3 mb-2">from {{ schedule.from_state.name }} to {{ schedule.to_state.name }} on {{ schedule.scheduled_date }}</p>
+            <a href="{% url 'landing:booking-view' schedule.id %}" style="font-variant: small-caps;" class="px-4 rounded-full py-1 text-xs bg-slate-600">make a booking</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="w-full flex gap-8 flex-wrap justify-center px-[6%] p-4">
+    <div class="cursor-pointer basis-72 p-6 flex group flex-col items-center justify-center gap-2 relative before:absolute before:w-full before:top-0 before:h-0.5 before:bg-slate-700 before:transition-all hover:before:h-full">
+      <h3 class="text-md z-10 group-hover:text-white">Lorem ipsum dolor sit amet.</h3>
+      <p class="text-sm text-center leading-4 z-10 text-gray-400 group-hover:text-white">
+        {% lorem 16 w random %}
+      </p>
+    </div>
+    <div class="cursor-pointer basis-72 p-6 flex group flex-col items-center justify-center gap-2 relative before:absolute before:w-full before:top-0 before:h-0.5 before:bg-slate-700 before:transition-all hover:before:h-full">
+      <h3 class="text-md z-10 group-hover:text-white">Lorem ipsum dolor sit amet.</h3>
+      <p class="text-sm text-center leading-4 z-10 text-gray-400 group-hover:text-white">
+        {% lorem 16 w random %}
+      </p>
+    </div>
+    <div class="cursor-pointer basis-72 p-6 flex group flex-col items-center justify-center gap-2 relative before:absolute before:w-full before:top-0 before:h-0.5 before:bg-slate-700 before:transition-all hover:before:h-full">
+      <h3 class="text-md z-10 group-hover:text-white">Lorem ipsum dolor sit amet.</h3>
+      <p class="text-sm text-center leading-4 z-10 text-gray-400 group-hover:text-white">
+        {% lorem 16 w random %}
+      </p>
+    </div>
+  </section>
+
+  <section class="w-full p-4 px-[10%]">
+    <div class="w-full flex flex-col gap-4 items-center justify-center text-white text-center font-semibold aspect-3 min-h-40 relative from-slate-400 to-slate-800 bg-gradient-to-b rounded-md">
+      <h2 class="text-xl md:text-3xl w-5/6">Lorem ipsum dolor sit amet.</h2>
+      <p class="text-xs w-5/6 md:w-4/6">
+        {% lorem 20 w random %}
+      </p>
+    </div>
+  </section>
+{% endblock %}
+
+{% block script %}
+  <script>
+    const toOption = document.querySelector('#to')
+    const fromOption = document.querySelector('#from')
+    
+    toOption.addEventListener('change', (ev) => {
+      fromOption.querySelectorAll('option').forEach((opt) => {
+        if (opt.value == 'select town') continue
+
+        if (opt.value == ev.target.value) opt.setAttribute('hidden', true)
+        else opt.removeAttribute('hidden')
+      })
+    })
+    
+    fromOption.addEventListener('change', (ev) => {
+      toOption.querySelectorAll('option').forEach((opt) => {
+        if (opt.value == 'select town') continue
+
+        if (opt.value == ev.target.value) opt.setAttribute('hidden', true)
+        else opt.removeAttribute('hidden')
+      })
+    })
+  </script>
+{% endblock %}

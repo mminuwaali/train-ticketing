@@ -1,0 +1,102 @@
+[
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "NRC Express",
+        "capacity": 200
+    },
+    {
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSld5GnhJ1WCNsgj4LvIvxp9IizkHbG9BbFfNnXPyGh5A&s",
+        "name": "Lagos-Abeokuta Shuttle",
+        "capacity": 150
+    },
+    {
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4WL13yqqMhGeiVcut6e0ydqCc63H8OPpBFd3Ld9dw0A&s",
+        "name": "Abuja-Kaduna Express",
+        "capacity": 250
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Warri-Itakpe Connection",
+        "capacity": 180
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Port Harcourt-Maiduguri Express",
+        "capacity": 220
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Kano-Katsina Connection",
+        "capacity": 170
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Enugu-Owerri Shuttle",
+        "capacity": 190
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Calabar-Uyo Express",
+        "capacity": 210
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Ibadan-Oshogbo Connection",
+        "capacity": 160
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Jos-Bauchi Express",
+        "capacity": 230
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Yenagoa-Asaba Connection",
+        "capacity": 200
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Sokoto-Jalingo Shuttle",
+        "capacity": 240
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Minna-Lafia Express",
+        "capacity": 180
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Auchi-Ado Ekiti Connection",
+        "capacity": 150
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Aba-Umuahia Shuttle",
+        "capacity": 190
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Zaria-Kaduna Connection",
+        "capacity": 220
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Akure-Ilorin Express",
+        "capacity": 170
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Makurdi-Keffi Connection",
+        "capacity": 210
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Eket-Oron Shuttle",
+        "capacity": 160
+    },
+    {
+        "image": "https://cdn.punchng.com/wp-content/uploads/2023/12/21190209/train-rides.jpg",
+        "name": "Okene-Lokoja Express",
+        "capacity": 230
+    }
+]

@@ -1,0 +1,43 @@
+{% load static tailwind_tags %}
+{% tailwind_css %}
+
+{% if messages %}
+  <style>
+    #errors {
+      .error {
+        --bg: rgb(182, 48, 48);
+      }
+      .warning {
+        --bg: rgb(224, 163, 31);
+      }
+      .success {
+        --bg: rgb(78, 239, 78);
+      }
+    }
+  </style>
+  <section id="errors" class="w-screen h-screen top-0 left-0 fixed z-50 pointer-events-none p-10 flex flex-col {{ flex|default:'items-end justify-end' }} gap-4">
+    {% for message in messages %}
+      <span style="--w: 100%;" class="{{ message.tags }} w-80 p-3 bg-white text-sm text-[var(--bg)] translate-x-full transition-all shadow-md pointer-events-auto cursor-pointer opacity-0 relative overflow-x-hidden before:absolute before:left-0 before:bottom-0 before:w-[var(--w)] before:h-0.5 before:bg-[var(--bg)] before:transition-all">{{ message }}</span>
+    {% endfor %}
+  </section>
+
+  <script>
+    document.querySelectorAll('#errors span').forEach((message, id, messages) => {
+      let [count, decrement, interval] = [100, 1]
+    
+      setTimeout(() => {
+        message.style.opacity = 1
+        message.style.transform = 'translateX(0)'
+        interval = setInterval(() => {
+          count -= decrement
+          message.style.setProperty('--w', `${count}%`)
+          if (count <= 0) clearInterval(interval), message.remove()
+        }, 40 + 5 * (messages.length - id))
+      }, 900 + 800 * id)
+    
+      message.addEventListener('mouseout', () => (decrement = 1))
+      message.addEventListener('mouseover', () => (decrement = 0))
+      message.addEventListener('click', () => message.remove(), clearInterval(interval))
+    })
+  </script>
+{% endif %}

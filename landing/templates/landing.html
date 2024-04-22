@@ -1,0 +1,59 @@
+{% load static heroicons tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% tailwind_css %}
+    <title>Leaftip</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body class="w-screen overflow-x-hidden flex flex-col items-center">
+    <header style="font-variant: small-caps;" class="p-3 z-50 px-[10%] md:px-[4%] fixed top-0 left-0 md:left-auto md:top-4 w-full md:w-4/6 flex items-center justify-between bg-white md:bg-opacity-80 md:backdrop-blur-md md:rounded shadow-md text-xs font-semibold text-slate-400">
+      <a href="{% url 'landing:index-view' %}" class="capitalize font-bold text-xl"><img src="{% static 'logo.jpg' %}" alt="" class="h-7" /></a>
+
+      <nav class="hidden md:flex grow items-center justify-center gap-4">
+        <a href="{% url 'landing:about-view' %}" class="current transition-all hover:text-slate-800">about us</a>
+        <a href="{% url 'landing:contact-view' %}" class="current transition-all hover:text-slate-800">contact us</a>
+      </nav>
+
+      <nav class="flex items-center justify-center">
+        {% if user.is_authenticated %}
+          <a href="{% url 'account:index-view' %}" class="scale-75 -mx-0.5 transition-all hover:text-slate-800">{% heroicon_outline 'cog-6-tooth' %}</a>
+          <a href="{% url 'account:signout-view' %}" class="px-5 py-0.5 ml-4 text-white bg-slate-600 rounded-full">sign out</a>
+        {% else %}
+          <a href="{% url 'account:signin-view' %}" class="transition-all hover:text-slate-800">sign in</a>
+          <a href="{% url 'account:signup-view' %}" class="px-5 py-0.5 ml-4 text-white bg-slate-600 rounded-full">sign up</a>
+        {% endif %}
+      </nav>
+    </header>
+
+    <main class="grow w-full flex flex-col min-h-screen mb-10 gap-10">
+      {% block content %}
+
+      {% endblock %}
+    </main>
+
+    <footer class="w-full p-10 bg-black"></footer>
+
+    <nav class="w-full sticky bg-white text-slate-500 gap-4 bottom-0 py-2 font-semibold flex md:hidden items-center justify-evenly px-[10%] text-xs" style="font-variant: small-caps;">
+      <a href="{% url 'landing:about-view' %}" class="flex flex-col items-center transition-all hover:text-slate-800">
+        <i class="scale-75 -mb-1">{% heroicon_outline 'question-mark-circle' %}</i>
+        <span class="">about us</span>
+      </a>
+      <a href="{% url 'landing:contact-view' %}" class="flex flex-col items-center transition-all hover:text-slate-800">
+        <i class="scale-75 -mb-1">{% heroicon_outline 'chat-bubble-left-ellipsis' %}</i>
+        <span class="">contact us</span>
+      </a>
+    </nav>
+
+    {% include 'components/error.html' %}
+  </body>
+  <script>
+    document.querySelectorAll('a.current').forEach((el) => {
+      if (location.href == el.href) el.classList.add('text-slate-800')
+    })
+  </script>
+  {% block script %}
+
+  {% endblock %}
+</html>
